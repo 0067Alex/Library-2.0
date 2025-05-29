@@ -50,6 +50,7 @@ public class BookManagementCLI {
                 case 5:
                     reserveBookCLI();
                     break;
+                case 6: cancelReservationCLI(); break;
                 case 0:
                     backToMain = true;
                     break;
@@ -167,6 +168,23 @@ public class BookManagementCLI {
             System.out.println(" Book ID " + bookID + " successfully reserved by User ID " + userID + ".");
         } else {
             System.out.println("Reserve failed. Either book not available or user not found.");
+        }
+    }
+    /// 6. Cancel reservation
+    private void cancelReservationCLI() {
+        System.out.println("Option 6 selected. Cancel a reservation:");
+        System.out.print("Enter Book ID: ");
+        int bookID = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter User ID: ");
+        int userID = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean success = library.cancelReservation(userID, bookID);
+        if (success) {
+            System.out.println("✅ Reservation for Book ID " + bookID + " cancelled for User ID " + userID + ".");
+        } else {
+            System.out.println("❌ Cancellation failed. Either reservation not found or invalid IDs.");
         }
     }
 

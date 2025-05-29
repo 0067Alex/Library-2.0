@@ -59,6 +59,10 @@ public class Library {
         return bookManager.returnBook(userID, bookID);
     }
 
+    public boolean cancelReservation(int userID, int bookID) {
+        return bookManager.cancelReservation(userID, bookID);
+    }
+
     /// BookSearcher
     public Book searchBookByID(int bookID) {
         return BookDAO.searchBooksByID(bookID);

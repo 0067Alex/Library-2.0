@@ -214,4 +214,38 @@ public class BookManager {
         System.out.println("✅ Book '" + book.getTitle() + "' successfully reserved by " + user.getUserName());
         return true;
     }
+    /// 1.5 Cancel reservation
+    public boolean cancelReservation(int userID, int bookID) {
+        // 1. Validar existencia y refrescar datos
+        if (!validateUserAndBookExist(userID, bookID)) return false;
+        if (!refreshUserAndBookDatabase(userID, bookID)) {
+            System.out.println("❌ Failed to refresh user or book from database.");
+            return false;
+        }
+
+        User user = users.get(userID);
+        Book book = books.get(bookID);
+
+        // 2. Comprobar que el usuario realmente tiene reservada la obra
+        book.setReservedBy(ReservationDAO.getReserverOfBook(bookID));  // sincroniza desde BD
+        if (book.getReservedBy().isEmpty() || book.getReservedBy().get().getUserID() != userID) {
+            System.out.println("❌ No existe reserva de este libro por parte del usuario.");
+            return false;
+        }
+
+        // 3. Llamar al DAO para borrar la reserva de la BD
+        try {
+            ReservationDAO.cancelReservation(userID, bookID);
+        } catch (Exception e) {
+            System.out.println("❌ Error al cancelar la reserva en base de datos: " + e.getMessage());
+            return false;
+        }
+
+        // 4. Sincronizar el estado en memoria
+        book.setReservedBy(null);
+        user.getReservedBooksList().remove(book);
+
+        System.out.println("✅ Reserva del libro '" + book.getTitle() + "' cancelada para " + user.getUserName());
+        return true;
+    }
 }
