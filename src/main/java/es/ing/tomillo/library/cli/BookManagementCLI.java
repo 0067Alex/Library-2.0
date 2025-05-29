@@ -28,6 +28,7 @@ public class BookManagementCLI {
             System.out.println("3. Borrow Book");
             System.out.println("4. Return Book");
             System.out.println("5. Reserve Book");
+            System.out.println("6. ❌ Cancel Reservation");
             System.out.println("0. 🔙 Back to Main Menu");
             System.out.print("👉 Option: ");
 
