@@ -66,7 +66,7 @@ public class Library {
     /// BookSearcher
     public Book searchBookByID(int bookID) {
         return BookDAO.searchBooksByID(bookID);
-    }
+    }///error al comunciarse directo con la BBDD
 
     public Book searchBookByIsbn(String isbn) {
         return BookDAO.searchBooksByIsbn(isbn);

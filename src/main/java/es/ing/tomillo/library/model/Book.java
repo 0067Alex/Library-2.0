@@ -152,15 +152,7 @@ public class Book {
     public boolean isReserved() {
         return reservedBy != null;
     }
-
-    public boolean canBeBorrowed() {
-        return bookAvailability == BookAvailability.AVAILABLE && !isBorrowed();
-    }
-
-    public boolean canBeReserved() {
-        return isBorrowed() && !isReserved();
-    }
-
+    
     /// toString
     @Override
     public String toString() {
